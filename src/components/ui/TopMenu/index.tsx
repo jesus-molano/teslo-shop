@@ -5,7 +5,7 @@ import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
 
 const CATEGORY_LINKS = [
   { title: "Men", href: "/category/men" },
-  { title: "Woman", href: "/categoty/woman" },
+  { title: "Woman", href: "/category/woman" },
   { title: "Kids", href: "/category/kids" },
 ];
 
@@ -37,7 +37,7 @@ export const TopMenu = () => {
         </Link>
         <Link href={"/cart"} className="p-2">
           <div className="relative">
-            <span className="absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700 -text-white">
+            <span className="absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700 text-white">
               1
             </span>
 

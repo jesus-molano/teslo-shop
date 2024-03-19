@@ -1,1 +1,2 @@
-export * from "@/components/ui/TopMenu";
+export * from "@/components/UI/TopMenu";
+export * from "@/components/UI/NotFound";
