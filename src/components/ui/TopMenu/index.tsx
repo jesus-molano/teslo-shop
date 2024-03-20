@@ -7,8 +7,8 @@ import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
 
 const CATEGORY_LINKS = [
   { title: "Men", href: "/category/men" },
-  { title: "Woman", href: "/category/woman" },
-  { title: "Kids", href: "/category/kids" },
+  { title: "Women", href: "/category/women" },
+  { title: "Kids", href: "/category/kid" },
 ];
 
 export const TopMenu = () => {
