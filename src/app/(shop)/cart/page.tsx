@@ -2,6 +2,7 @@ import { QuantitySelector, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { IoTrashOutline } from "react-icons/io5";
 
 const productsInCart = [
@@ -11,6 +12,7 @@ const productsInCart = [
 ];
 
 export default function CartPage() {
+  // redirect("/empty");
   return (
     <div className="flex justify-center items-center px-10 md:px-0">
       <div className="flex flex-col w-full max-w-[1000px] gap-5 ">
