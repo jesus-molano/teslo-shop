@@ -26,7 +26,7 @@ export const ProductdGridItem = ({ product }: ProductdGridItemProps) => {
         />
       </Link>
       <div className="flex flex-col p-4 ">
-        <Link className="hover:text-blue-700" href={`/product/${product.slug}`}>
+        <Link className="hover:text-rose-600" href={`/product/${product.slug}`}>
           {product.title}
         </Link>
         <span className="font-bold">${product.price.toFixed(2)}</span>

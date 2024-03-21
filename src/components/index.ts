@@ -4,3 +4,8 @@ export * from "@/components/UI/NotFound";
 export * from "@/components/UI/Sidebar";
 export * from "@/components/UI/Title";
 export * from "@/components/UI/TopMenu";
+export * from "@/components/Product/SlideShow/DesktopSlideShow";
+export * from "@/components/Product/SlideShow/MobileSlideShow";
+export * from "@/components/Product/ProductDetails";
+export * from "@/components/Product/SizeSelector";
+export * from "@/components/Product/QuantitySelector";
