@@ -25,7 +25,7 @@ export const MobileSlideShow = ({
         style={
           {
             "--swiper-pagination-color": "#ff1c4c",
-            width: "100vw",
+            width: "100%",
             height: "500px",
           } as React.CSSProperties
         }

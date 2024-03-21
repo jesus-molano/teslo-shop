@@ -20,7 +20,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
         availableSizes={product.sizes}
       />
       <QuantitySelector quantity={2} />
-      <button className="btn-primary my-6 sm:max-w-36">Add to Cart</button>
+      <button className="btn-primary my-6 md:max-w-36">Add to Cart</button>
       <h3 className="font-bold text-sm">Description</h3>
       <p className="font-light">{product.description}</p>
     </div>

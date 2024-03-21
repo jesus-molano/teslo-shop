@@ -2,11 +2,7 @@ import { QuantitySelector, Title } from "@/components";
 import { initialData } from "@/seed/seed";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  IoRemoveOutline,
-  IoTrashBinOutline,
-  IoTrashOutline,
-} from "react-icons/io5";
+import { IoTrashOutline } from "react-icons/io5";
 
 const productsInCart = [
   initialData.products[0],
@@ -16,10 +12,10 @@ const productsInCart = [
 
 export default function CartPage() {
   return (
-    <div className="flex justify-center items-center px-10 sm:px-0">
+    <div className="flex justify-center items-center px-10 md:px-0">
       <div className="flex flex-col w-full max-w-[1000px] gap-5 ">
-        <Title title="Cart" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+        <Title title="Cart" className="my-7" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <div className="flex flex-col gap-4  ">
             <span className="text-xl">Add more items</span>
             <Link href="/" className="underline">
@@ -50,7 +46,7 @@ export default function CartPage() {
               </div>
             ))}
           </div>
-          <div className="flex flex-col bg-white rounded-xl shadow-xl p-7 gap-6 max-h-[320px]">
+          <div className="flex flex-col bg-white rounded-xl shadow-xl p-7 gap-6 max-h-[320px] mb-4">
             <h2 className="text-2xl ">Order resume</h2>
             <div className="grid grid-cols-2">
               <span>Nº Products </span>
