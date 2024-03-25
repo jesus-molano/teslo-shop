@@ -4,4 +4,5 @@
 3. Rellenar las variables de entorno del .env
 4. Instalar dependencias ```npm install```
 5. Levantar la base de datos ```docker compose up -d```
-6. Correr el proyecto ```npm run dev```
+6. Correr las migraciones de Prisma ```npx prisma migrate dev```
+7. Correr el proyecto ```npm run dev```
