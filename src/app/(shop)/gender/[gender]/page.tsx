@@ -1,7 +1,9 @@
+export const revalidate = 60;
+
 import { getPaginatedProductsWithImages } from "@/actions";
 import { Pagination, ProductsGrid, Title } from "@/components";
 import { Gender } from "@prisma/client";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 interface GenderPageProps {
   params: {
@@ -22,9 +24,6 @@ export default async function GenderPage({
   if (products.length === 0) {
     redirect(`/gender/${gender}`);
   }
-  // if (id === "kids") {
-  //   notFound();
-  // }
 
   return (
     <div>
