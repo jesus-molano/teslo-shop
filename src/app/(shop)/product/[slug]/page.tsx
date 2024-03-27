@@ -1,9 +1,10 @@
+export const revalidate = 604800;
+import { getProductBySlug } from "@/actions";
 import {
   ProductDetails,
   DesktopSlideShow,
   MobileSlideShow,
 } from "@/components";
-import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
 interface ProductPageProps {
@@ -12,9 +13,10 @@ interface ProductPageProps {
   };
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = params;
-  const product = initialData.products.find((product) => product.slug === slug);
+
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
