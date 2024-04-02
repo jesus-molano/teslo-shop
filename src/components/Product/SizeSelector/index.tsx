@@ -3,13 +3,15 @@ import clsx from "clsx";
 import React from "react";
 
 interface SizeSelectorProps {
-  selectedSize: Size;
+  selectedSize?: Size;
   availableSizes: Size[];
+  onSizeChanged: (size: Size) => void;
 }
 
 export const SizeSelector = ({
   selectedSize,
   availableSizes,
+  onSizeChanged,
 }: SizeSelectorProps) => {
   return (
     <div className="my-5">
@@ -18,6 +20,7 @@ export const SizeSelector = ({
         {availableSizes.map((size) => (
           <button
             key={size}
+            onClick={() => onSizeChanged(size)}
             className={clsx("hover:underline font-medium p-1", {
               "bg-rose-200 rounded-full ": size === selectedSize,
             })}
