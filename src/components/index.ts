@@ -11,3 +11,5 @@ export * from "@/components/UI/Sidebar";
 export * from "@/components/UI/Title";
 export * from "@/components/UI/TopMenu";
 export * from "@/components/UI/Pagination";
+export * from "@/components/Cart/ProductsInCart";
+export * from "@/components/Cart/OrderSummary";

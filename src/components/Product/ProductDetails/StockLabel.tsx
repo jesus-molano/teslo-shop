@@ -34,7 +34,7 @@ export const StockLabel = ({ slug }: StockLabelProps) => {
           &nbsp;
         </p>
       ) : (
-        <p className="text-sm text-rose-500 h-7">{stockLabel}</p>
+        <p className="text-sm text-rose-500 h-7 fade-in">{stockLabel}</p>
       )}
     </>
   );

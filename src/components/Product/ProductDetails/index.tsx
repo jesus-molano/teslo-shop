@@ -1,25 +1,38 @@
 "use client";
 import { titleFont } from "@/config/fonts";
-import { Product, Size } from "@/interfaces";
+import { CartProduct, Product, Size } from "@/interfaces";
 import React, { useState } from "react";
 import { SizeSelector } from "../SizeSelector";
 import { QuantitySelector } from "../QuantitySelector";
-import clsx from "clsx";
 import { StockLabel } from "./StockLabel";
+import { useCartStore } from "@/store";
 
 interface ProductDetailsProps {
   product: Product;
 }
 
 export const ProductDetails = ({ product }: ProductDetailsProps) => {
+  const addProductToCart = useCartStore((state) => state.addProductToCart);
   const [size, setSize] = useState<Size | undefined>();
   const [quantity, setQuantity] = useState<number>(1);
   const [posted, setPosted] = useState(false);
 
   const addToCart = () => {
     setPosted(true);
-    if (!size) {
-    }
+    if (!size) return;
+    const cartProduct: CartProduct = {
+      id: product.id,
+      slug: product.slug,
+      title: product.title,
+      price: product.price,
+      size: size,
+      quantity: quantity,
+      image: product.images[0],
+    };
+    addProductToCart(cartProduct);
+    setPosted(false);
+    setQuantity(1);
+    setSize(undefined);
   };
 
   return (
@@ -39,7 +52,6 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
       />
       {product.inStock > 0 ? (
         <>
-          (
           <QuantitySelector
             quantity={quantity}
             onChangeQuantity={setQuantity}
@@ -47,7 +59,6 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
           <button onClick={addToCart} className="btn-primary my-6 md:max-w-36">
             Add to Cart
           </button>
-          )
         </>
       ) : (
         <button

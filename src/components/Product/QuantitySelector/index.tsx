@@ -21,9 +21,8 @@ export const QuantitySelector = ({
   };
   return (
     <div className="flex gap-2">
-      <button className="group px-2">
+      <button className="group px-2" onClick={() => onQuantityChange(-1)}>
         <IoRemoveCircleOutline
-          onClick={() => onQuantityChange(-1)}
           size={20}
           className={clsx(
             "group-hover:bg-rose-200 rounded-full",
@@ -35,9 +34,8 @@ export const QuantitySelector = ({
       <span className="w-full max-w-16 text-center px-2 py-2 bg-gray-200 rounded-md ">
         {quantity}
       </span>
-      <button className="group px-2">
+      <button className="group px-2" onClick={() => onQuantityChange(1)}>
         <IoAddCircleOutline
-          onClick={() => onQuantityChange(1)}
           size={20}
           className={clsx(
             "group-hover:bg-rose-200 rounded-full",
