@@ -6,18 +6,18 @@ import clsx from "clsx";
 interface QuantitySelectorProps {
   quantity: number;
   disabled?: boolean;
+  onChangeQuantity: (quantity: number) => void;
 }
 export const QuantitySelector = ({
   quantity,
   disabled,
+  onChangeQuantity,
 }: QuantitySelectorProps) => {
-  const [count, setCount] = useState(quantity);
-
   const onQuantityChange = (value: number) => {
     if (disabled) return;
-    if (count + value < 1) return;
-    if (count + value > 5) return;
-    setCount(count + value);
+    if (quantity + value < 1) return;
+    if (quantity + value > 5) return;
+    onChangeQuantity(quantity + value);
   };
   return (
     <div className="flex gap-2">
@@ -33,7 +33,7 @@ export const QuantitySelector = ({
         />
       </button>
       <span className="w-full max-w-16 text-center px-2 py-2 bg-gray-200 rounded-md ">
-        {count}
+        {quantity}
       </span>
       <button className="group px-2">
         <IoAddCircleOutline
