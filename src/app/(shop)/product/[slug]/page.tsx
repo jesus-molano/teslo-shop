@@ -5,11 +5,30 @@ import {
   DesktopSlideShow,
   MobileSlideShow,
 } from "@/components";
+import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 
 interface ProductPageProps {
   params: {
     slug: string;
+  };
+}
+
+export async function generateMetaData(
+  { params }: ProductPageProps,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const slug = params.slug;
+  const product = await getProductBySlug(slug);
+
+  return {
+    title: product?.title ?? "Product Not Found",
+    description: product?.description ?? "Product Not Found",
+    openGraph: {
+      title: product?.title ?? "Product Not Found",
+      description: product?.description ?? "Product Not Found",
+      images: [`/products/${product?.images[1]}`],
+    },
   };
 }
 
