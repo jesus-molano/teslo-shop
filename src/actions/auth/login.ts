@@ -20,3 +20,13 @@ export async function authenticate(
     throw error;
   }
 }
+
+// login after signup
+export async function login(email: string, password: string) {
+  try {
+    await signIn("credentials", { email, password });
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, message: "Invalid credentials." };
+  }
+}

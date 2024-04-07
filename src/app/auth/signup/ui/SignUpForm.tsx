@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
-import React from "react";
-import { Form, useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ZodType, z } from "zod";
 import FormField from "@/components/Form/FormField";
+import { login, signup } from "@/actions";
 
 type FormInputs = {
   name: string;
@@ -28,13 +29,24 @@ export const SignUpForm = () => {
   } = useForm<FormInputs>({
     resolver: zodResolver(UserSchema),
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (data: FormInputs) => {
+    setErrorMessage("");
     const { name, email, password } = data;
+    const response = await signup(name, email, password);
+    if (!response.ok) {
+      setErrorMessage(response.message);
+      return;
+    }
+    await login(email.toLowerCase(), password);
+    window.location.replace("/");
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <p className="flex h-8 items-center w-full justify-end "></p>
+      <p className="flex h-8 items-center w-full justify-end  text-red-600">
+        {errorMessage}
+      </p>
       <FormField
         type="text"
         name="name"
