@@ -13,3 +13,4 @@ export * from "@/components/UI/TopMenu";
 export * from "@/components/UI/Pagination";
 export * from "@/components/Cart/ProductsInCart";
 export * from "@/components/Cart/OrderSummary";
+export * from "@/components/Form/FormField";

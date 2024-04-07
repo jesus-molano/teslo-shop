@@ -1,5 +1,5 @@
 import { titleFont } from "@/config/fonts";
-import Link from "next/link";
+import { SignUpForm } from "./ui/SignUpForm";
 
 export default function LoginPage() {
   return (
@@ -8,37 +8,7 @@ export default function LoginPage() {
         Sign up
       </h1>
 
-      <div className="flex flex-col">
-        <label htmlFor="email">Name</label>
-        <input
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
-          type="text"
-        />
-
-        <label htmlFor="email">Email</label>
-        <input
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
-          type="email"
-        />
-
-        <label htmlFor="email">Password</label>
-        <input
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
-          type="email"
-        />
-
-        <button className="btn-primary">Create account</button>
-
-        <div className="flex items-center my-5">
-          <div className="flex-1 border-t border-gray-500"></div>
-          <div className="px-2 text-gray-800">or</div>
-          <div className="flex-1 border-t border-gray-500"></div>
-        </div>
-
-        <Link href="/auth/login" className="btn-secondary text-center">
-          Sign in with an existing account
-        </Link>
-      </div>
+      <SignUpForm />
     </section>
   );
 }
