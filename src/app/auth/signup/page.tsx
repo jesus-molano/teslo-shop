@@ -35,7 +35,7 @@ export default function LoginPage() {
           <div className="flex-1 border-t border-gray-500"></div>
         </div>
 
-        <Link href="/auth/new-account" className="btn-secondary text-center">
+        <Link href="/auth/login" className="btn-secondary text-center">
           Sign in with an existing account
         </Link>
       </div>
