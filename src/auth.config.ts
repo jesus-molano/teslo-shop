@@ -1,6 +1,10 @@
-import NextAuth, { type NextAuthConfig } from "next-auth";
+import NextAuth, { DefaultSession, type NextAuthConfig } from "next-auth";
 import credentials from "next-auth/providers/credentials";
 import { z } from "zod";
+import prisma from "./lib/prisma";
+import bcryptjs from "bcryptjs";
+
+const authenticatedRoutes = ["/checkout", "/profile", "/orders"];
 
 export const authConfig: NextAuthConfig = {
   pages: {
@@ -10,14 +14,22 @@ export const authConfig: NextAuthConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isOnDashboard = nextUrl.pathname.startsWith("/checkout");
-      if (isOnDashboard) {
+      const isAuthenticatedRoute = authenticatedRoutes.some((route) => {
+        return nextUrl.pathname.startsWith(route);
+      });
+      if (isAuthenticatedRoute) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL("/checkout", nextUrl));
       }
       return true;
+    },
+    jwt({ token, user }) {
+      if (user) token.data = user;
+      return token;
+    },
+    session({ session, token }) {
+      session.user = token.data as any;
+      return session;
     },
   },
   providers: [
@@ -29,12 +41,19 @@ export const authConfig: NextAuthConfig = {
 
         if (!parsedCredentials.success) return null;
         const { email, password } = parsedCredentials.data;
-        console.log("credentials" + email + password);
 
-        return null;
+        const user = await prisma.user.findUnique({
+          where: { email: email.toLowerCase() },
+        });
+
+        if (!user) return null;
+        if (!bcryptjs.compareSync(password, user.password)) return null;
+
+        const { password: _, ...rest } = user;
+        return rest;
       },
     }),
   ],
 };
 
-export const { signIn, signOut, auth } = NextAuth(authConfig);
+export const { signIn, signOut, auth, handlers } = NextAuth(authConfig);

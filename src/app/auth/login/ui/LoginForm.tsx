@@ -1,16 +1,21 @@
 "use client";
 import { authenticate } from "@/actions";
+import clsx from "clsx";
 import Link from "next/link";
 import React from "react";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
+import { IoInformationOutline } from "react-icons/io5";
 
 export const LoginForm = () => {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   return (
     <form action={dispatch} className="flex flex-col">
-      <p className="flex h-8 ">
+      <p className="flex h-8 items-center w-full justify-end ">
         {errorMessage && (
-          <span className="text-red-500 text-sm">{errorMessage}</span>
+          <>
+            <IoInformationOutline className="text-red-500" />
+            <span className="text-red-500 text-sm">{errorMessage}</span>
+          </>
         )}
       </p>
       <label htmlFor="email">Email</label>
@@ -27,9 +32,7 @@ export const LoginForm = () => {
         type="password"
       />
 
-      <button type="submit" className="btn-primary">
-        Login
-      </button>
+      <LoginButton />
 
       {/* divisor l ine */}
       <div className="flex items-center my-5">
@@ -44,3 +47,19 @@ export const LoginForm = () => {
     </form>
   );
 };
+
+function LoginButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      className={clsx({
+        "btn-primary": !pending,
+        "btn-disable": pending,
+      })}
+      disabled={pending}
+    >
+      Login
+    </button>
+  );
+}
