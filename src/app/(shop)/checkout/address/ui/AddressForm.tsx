@@ -2,10 +2,11 @@
 import FormField from "@/components/Form/FormField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { Country } from "@/interfaces";
+import { useAddressStore } from "@/store";
 
 interface FormInputs {
   firstName: string;
@@ -41,6 +42,7 @@ export const AddressForm = ({ countries }: AddressFormProps) => {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { isValid, errors },
   } = useForm<FormInputs>({
     defaultValues: {
@@ -49,7 +51,17 @@ export const AddressForm = ({ countries }: AddressFormProps) => {
     resolver: zodResolver(AddressSchema),
   });
 
+  const address = useAddressStore((state) => state.address);
+  const setAddress = useAddressStore((state) => state.setAddress);
+
+  useEffect(() => {
+    if (address.firstName) {
+      reset(address);
+    }
+  }, [address]);
+
   const onSubmit = (data: FormInputs) => {
+    setAddress(data);
     console.log(data);
   };
 
