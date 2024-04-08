@@ -1,5 +1,5 @@
 import { Title } from "@/components";
-import Link from "next/link";
+import { AddressForm } from "./ui/AddressForm";
 
 export default function CheckoutAddressPage() {
   return (
@@ -10,62 +10,7 @@ export default function CheckoutAddressPage() {
           subtitle="Delivery address"
           className="gap-4 my-7"
         />
-
-        <div className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2">
-          <div className="flex flex-col mb-2">
-            <span>Name</span>
-            <input type="text" className="p-2 border rounded-md bg-gray-200" />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Lastname</span>
-            <input type="text" className="p-2 border rounded-md bg-gray-200" />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Address</span>
-            <input type="text" className="p-2 border rounded-md bg-gray-200" />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Address 2 (optional)</span>
-            <input type="text" className="p-2 border rounded-md bg-gray-200" />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Postal Code</span>
-            <input type="text" className="p-2 border rounded-md bg-gray-200" />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>City</span>
-            <input type="text" className="p-2 border rounded-md bg-gray-200" />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Country</span>
-            <select className=" p-2 border rounded-md bg-gray-200">
-              <option value="" className=" ">
-                [ Select ]
-              </option>
-              <option value="ES"> Spain</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Phone</span>
-            <input type="text" className="p-2 border rounded-md bg-gray-200" />
-          </div>
-
-          <div className="flex flex-col mb-2 sm:mt-10">
-            <Link
-              href="/checkout"
-              className="btn-primary flex w-full sm:w-1/2 justify-center "
-            >
-              Continue
-            </Link>
-          </div>
-        </div>
+        <AddressForm />
       </div>
     </div>
   );

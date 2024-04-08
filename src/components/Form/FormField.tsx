@@ -1,23 +1,18 @@
 import clsx from "clsx";
 import { FieldError, UseFormRegister } from "react-hook-form";
 
-type FormData = {
-  email: string;
-  name: string;
-  password: string;
-};
-
 type FormFieldProps = {
   className?: string;
   label?: string;
   type: string;
   placeholder?: string;
-  name: ValidFieldNames;
-  register: UseFormRegister<FormData>;
+  name: string;
+  register: UseFormRegister<any>;
   error: FieldError | undefined;
+  options?: string[];
   autoFocus?: boolean;
+  required?: boolean;
 };
-type ValidFieldNames = "email" | "name" | "password";
 
 const FormField: React.FC<FormFieldProps> = ({
   className,
@@ -27,18 +22,60 @@ const FormField: React.FC<FormFieldProps> = ({
   name,
   register,
   error,
+  options,
   autoFocus = false,
-}) => (
-  <>
-    <span className="text-xs text-red-600 h-4">{error && error?.message}</span>
-    {label && <label htmlFor={name}>{label}</label>}
-    <input
-      type={type}
-      className={clsx(className, { "border-red-600": error })}
-      placeholder={placeholder}
-      autoFocus={autoFocus}
-      {...register(name)}
-    />
-  </>
-);
+  required = false,
+}) => {
+  if (type === "select" && options) {
+    return (
+      <>
+        <span className="text-xs text-red-600 h-4">
+          {error && error?.message}
+        </span>
+        {label && (
+          <label htmlFor={name}>
+            {required && <span className="text-red-600">*</span>}
+            {label}
+          </label>
+        )}
+        <select
+          className={clsx(className, { "border-red-600": error })}
+          autoFocus={autoFocus}
+          defaultValue={""}
+          {...register(name)}
+        >
+          <option value="" disabled>
+            Select an option
+          </option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <span className="text-xs text-red-600 h-4">
+        {error && error?.message}
+      </span>
+      {label && (
+        <label htmlFor={name}>
+          {required && <span className="text-red-600">*</span>}
+          {label}
+        </label>
+      )}
+      <input
+        type={type}
+        className={clsx(className, { "border-red-600": error })}
+        placeholder={placeholder}
+        autoFocus={autoFocus}
+        {...register(name)}
+      />
+    </>
+  );
+};
 export default FormField;
