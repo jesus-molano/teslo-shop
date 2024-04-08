@@ -33,11 +33,7 @@ export default function CheckoutPage() {
                 <div className="flex flex-col gap-1 flex-1">
                   <p>{product.title}</p>
                   <p>${product.price.toFixed(2)}</p>
-                  <QuantitySelector
-                    quantity={0}
-                    disabled
-                    onChangeQuantity={() => {}}
-                  />
+                  <QuantitySelector quantity={0} disabled />
                   <p className="font-bold">
                     Subtotal: <span>${product.price * 3}</span>
                   </p>

@@ -5,8 +5,11 @@ import clsx from "clsx";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
-import { Country } from "@/interfaces";
+import { Address, Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
+import { deleteUserAddress, setUserAddress } from "@/actions";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface FormInputs {
   firstName: string;
@@ -36,9 +39,13 @@ const AddressSchema: ZodType<FormInputs> = z.object({
 
 interface AddressFormProps {
   countries: Country[];
+  userStoreAddress?: Partial<Address>;
 }
 
-export const AddressForm = ({ countries }: AddressFormProps) => {
+export const AddressForm = ({
+  countries,
+  userStoreAddress = {},
+}: AddressFormProps) => {
   const {
     handleSubmit,
     register,
@@ -46,11 +53,16 @@ export const AddressForm = ({ countries }: AddressFormProps) => {
     formState: { isValid, errors },
   } = useForm<FormInputs>({
     defaultValues: {
-      //TODO: Add default values
+      ...(userStoreAddress as any),
+      rememberAddress: false,
     },
     resolver: zodResolver(AddressSchema),
   });
 
+  const router = useRouter();
+  const { data: session } = useSession({
+    required: true,
+  });
   const address = useAddressStore((state) => state.address);
   const setAddress = useAddressStore((state) => state.setAddress);
 
@@ -60,9 +72,15 @@ export const AddressForm = ({ countries }: AddressFormProps) => {
     }
   }, [address]);
 
-  const onSubmit = (data: FormInputs) => {
+  const onSubmit = async (data: FormInputs) => {
     setAddress(data);
-    console.log(data);
+    const { rememberAddress, ...restAddress } = data;
+    if (data.rememberAddress) {
+      await setUserAddress(restAddress, session!.user.id!);
+    } else {
+      await deleteUserAddress(session!.user.id!);
+    }
+    router.push("/checkout");
   };
 
   return (
