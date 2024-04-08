@@ -9,7 +9,7 @@ type FormFieldProps = {
   name: string;
   register: UseFormRegister<any>;
   error: FieldError | undefined;
-  options?: string[];
+  options?: { id: string; name: string }[];
   autoFocus?: boolean;
   required?: boolean;
 };
@@ -48,8 +48,8 @@ const FormField: React.FC<FormFieldProps> = ({
             Select an option
           </option>
           {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
+            <option key={option.id} value={option.id}>
+              {option.name}
             </option>
           ))}
         </select>

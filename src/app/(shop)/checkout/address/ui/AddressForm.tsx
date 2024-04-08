@@ -2,10 +2,10 @@
 import FormField from "@/components/Form/FormField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
-import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
+import { Country } from "@/interfaces";
 
 interface FormInputs {
   firstName: string;
@@ -28,12 +28,16 @@ const AddressSchema: ZodType<FormInputs> = z.object({
   address2: z.string().optional(),
   postalCode: z.string().min(3, { message: "Postal code is required" }),
   city: z.string().min(3, { message: "City is required" }),
-  country: z.string().min(3, { message: "Country is required" }),
+  country: z.string().min(1, { message: "Country is required" }),
   phone: z.string().min(3, { message: "Phone number is not valid" }),
   rememberAddress: z.boolean(),
 });
 
-export const AddressForm = () => {
+interface AddressFormProps {
+  countries: Country[];
+}
+
+export const AddressForm = ({ countries }: AddressFormProps) => {
   const {
     handleSubmit,
     register,
@@ -133,7 +137,7 @@ export const AddressForm = () => {
           error={errors.country}
           type="select"
           label="Country"
-          options={["Finland", "Sweden", "Norway", "Denmark"]}
+          options={countries}
           className="p-2 border rounded-md bg-gray-200"
           required
         />
@@ -189,7 +193,6 @@ export const AddressForm = () => {
             "btn-primary": isValid,
             "btn-disable": !isValid,
           })}
-          disabled={!isValid}
         >
           Continue
         </button>
